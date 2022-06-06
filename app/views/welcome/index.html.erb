@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  
+    <div class="jumbotron text-center">
+      <h1>Which Celebrities Share Your Birthday?</h1>
+      <h2>Let's Find Out. </h2>
+    
+    </div>
+    
+
+
+
+    <div  class="text-center" >
+      
+      <H2>
+        
+        <%= form_with url: "/bday", method: :get, remote:true do |form| %>
+        <h2 style="padding-bottom: 3px">Select the month and day that you were born:</h2>
+        <h1 style="padding-bottom: 0px"><%= select_month(5) %><%= select_day(4) %></h1>
+        <br/>
+        <button onclick="removeElement()">Submit</button>
+        
+        <% end %>
+        
+          
+        
+
+      </H2>
+    </div> 
+
+    <div id="toggle"", class="text-center", style="display:none">
+      <h2>Loading...</h2>
+      <%= render "spinner" %>
+    </div>
+
+        
+
+  </div>
+
+  <script>
+    function removeElement() {
+      document.getElementById("toggle").style.display = "block";
+    }
+    
+  </script>
+
+  
+</body>

@@ -1,0 +1,15 @@
+<div class="container">
+  <p>
+    
+    <% @list.each do |item| %>
+    <h1 class="center"><%= simple_format(item.name) %></h1>
+    
+    <img class="shadow" <%= image_tag(item.image, :class => "img-fluid img-thumbnail") %> <br/><br/>
+    
+    <h3 style = "text-align: justify"></h3> <%= simple_format(item.minibio) %></h3><br/><br/>
+    <% end %>
+    
+    
+
+  </p>
+</div>

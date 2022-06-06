@@ -1,0 +1,2 @@
+class Celeb < ApplicationRecord
+end
