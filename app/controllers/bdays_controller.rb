@@ -5,22 +5,19 @@ class BdaysController < ApplicationController
     require 'net/http'
     require 'openssl'
     require 'json'
-    #@month = params[:date][:month]
-    #@day = params[:date][:day]
-    #@list=[]
     
     
     
+    # Grab the month and day from params
     date = "#{params[:date][:month]}-#{params[:date][:day]}"
     @month = month(params[:date][:month])
-    #puts "Params month is: #{params[:date][:month]}" 
-    #puts "Params day is: #{params[:date][:day]}"
-    #puts "@month is #{@month}"
-    #puts "@day is #{@day}"
     db_read_write(date)
 
   end
   
+  # Checks the database to see if data exists for the date
+  # If data exists, puts all data into @list
+  # else, calls function to retrieve data through API from imdb website
   def db_read_write(date)
     date = "#{params[:date][:month]}-#{params[:date][:day]}"
     in_db = db_read(date)
@@ -37,6 +34,11 @@ class BdaysController < ApplicationController
     end
   
 
+  # calls the api to get a list of celebrities born on the date in params
+  # The data is cleaned by calling another function called slice and returns clean record
+  # The clean record is used in a second api call which pulls in the picutre and bio info for each celebrity
+  # Parsing functions clean up the Json data
+  # The clean data is written to the database
   
   def nm_list(date) 
     url = URI("https://imdb8.p.rapidapi.com/actors/list-born-today?month=#{params[:date][:month]}&day=#{params[:date][:day]}")
@@ -119,6 +121,7 @@ class BdaysController < ApplicationController
     end
   end
 
+  # Checks the database for the data. Writes if it doesn't exist
   def db_write(clean_record, bio_name, bio_image, bio_text, date)
     
     if  Celeb.exists?(nm: [clean_record]) == false
@@ -140,7 +143,7 @@ class BdaysController < ApplicationController
     end
    
   end
-
+  # A hash to display month names
   def month(month_num)
     months = Hash["1" => "January", "2" => "February","3" => "March", "4" => "April", "5" => "May", "6" => "June", "7" => "July", "8" => "August", "9" => "September", "10" => "October", "11" => "November", "12" => "December"]
 
