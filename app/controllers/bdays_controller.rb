@@ -9,6 +9,7 @@ class BdaysController < ApplicationController
     
     
     # Grab the month and day from params
+    # Call the month function to display month name
     date = "#{params[:date][:month]}-#{params[:date][:day]}"
     @month = month(params[:date][:month])
     db_read_write(date)
